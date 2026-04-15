@@ -19,6 +19,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#hero">Start</a></li>
                 <li><a href="#features">Vorteile</a></li>
+                <li><a href="#gallery">Galerie</a></li>
                 <li><a href="#how-it-works">Technologie</a></li>
                 <li><a href="#specs">Daten</a></li>
                 <li><a href="#pricing">Preis</a></li>
@@ -64,34 +65,7 @@
         <div class="hero-visual">
             <div class="car-showcase" id="carShowcase">
                 <div class="car-glow"></div>
-                <div class="car-silhouette">
-                    <svg viewBox="0 0 800 400" class="car-svg">
-                        <!-- Car body -->
-                        <path class="car-body" d="M150,280 Q150,250 180,230 L280,180 Q320,160 380,155 L520,155 Q560,155 580,170 L650,220 Q680,240 680,270 L680,290 Q680,300 670,300 L160,300 Q150,300 150,290 Z" fill="url(#carGradient)" />
-                        <!-- Windows -->
-                        <path class="car-window" d="M290,185 L340,165 L510,165 L570,185 L560,215 L290,215 Z" fill="rgba(135,206,250,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <line class="car-window-divider" x1="420" y1="165" x2="420" y2="215" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-                        <!-- Wheels -->
-                        <circle class="car-wheel" cx="250" cy="300" r="35" fill="#1a1a2e"/>
-                        <circle class="car-wheel-inner" cx="250" cy="300" r="20" fill="#2d2d4e" stroke="#4ecdc4" stroke-width="2"/>
-                        <circle class="car-wheel-center" cx="250" cy="300" r="6" fill="#4ecdc4"/>
-                        <circle class="car-wheel" cx="600" cy="300" r="35" fill="#1a1a2e"/>
-                        <circle class="car-wheel-inner" cx="600" cy="300" r="20" fill="#2d2d4e" stroke="#4ecdc4" stroke-width="2"/>
-                        <circle class="car-wheel-center" cx="600" cy="300" r="6" fill="#4ecdc4"/>
-                        <!-- Headlights -->
-                        <ellipse class="car-headlight" cx="670" cy="260" rx="8" ry="15" fill="#4ecdc4" opacity="0.9"/>
-                        <!-- Air flow lines -->
-                        <path class="air-flow air-flow-1" d="M100,200 Q130,200 150,210" stroke="#4ecdc4" stroke-width="2" fill="none" opacity="0"/>
-                        <path class="air-flow air-flow-2" d="M80,240 Q120,235 150,245" stroke="#4ecdc4" stroke-width="2" fill="none" opacity="0"/>
-                        <path class="air-flow air-flow-3" d="M90,270 Q125,268 150,275" stroke="#4ecdc4" stroke-width="2" fill="none" opacity="0"/>
-                        <defs>
-                            <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#4ecdc4"/>
-                                <stop offset="100%" style="stop-color:#2c8c85"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
+                <img src="assets/exterior.png" alt="Clean Car – Luftbetriebenes Auto Außenansicht" class="hero-car-img" loading="eager">
             </div>
         </div>
     </section>
@@ -134,6 +108,46 @@
                     <div class="feature-icon">♻️</div>
                     <h3>Recyclebar</h3>
                     <p>95% der Materialien sind vollständig recycelbar. Nachhaltig von der Produktion bis zum Lebensende.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery & Video Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Galerie</span>
+                <h2>Erleben Sie den Clean Car</h2>
+                <p>Außen elegant, innen luxuriös – sehen Sie selbst.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item gallery-item-large" data-animate="fade-up">
+                    <img src="assets/exterior.png" alt="Clean Car Außenansicht" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Außenansicht</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-animate="fade-up">
+                    <img src="assets/interior.jpg" alt="Clean Car Innenraum" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Innenraum</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-animate="fade-up">
+                    <img src="assets/concept.jpg" alt="Clean Car Konzeptübersicht" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span>Konzeptübersicht</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-showcase" data-animate="fade-up">
+                <h3 class="video-title">Clean Car in Aktion</h3>
+                <div class="video-wrapper">
+                    <video controls preload="metadata" poster="assets/exterior.png">
+                        <source src="assets/product-video.mp4" type="video/mp4">
+                        Ihr Browser unterstützt kein Video.
+                    </video>
                 </div>
             </div>
         </div>
@@ -344,6 +358,12 @@
             </div>
         </div>
     </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="Schließen">&times;</button>
+        <img src="" alt="" id="lightboxImg">
+    </div>
 
     <script type="module" src="js/app.js"></script>
 </body>

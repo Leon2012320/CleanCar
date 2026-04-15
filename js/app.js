@@ -8,6 +8,7 @@ import { initCounters } from './modules/counters.js';
 import { initContactForm } from './modules/contact.js';
 import { initParticles } from './modules/particles.js';
 import { initAirflowCanvas } from './modules/airflow.js';
+import { initLightbox } from './modules/lightbox.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
@@ -16,4 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     initParticles();
     initAirflowCanvas();
+    initLightbox();
 });
