@@ -1,0 +1,9 @@
+{
+  "name": "clean-car-website",
+  "version": "1.0.0",
+  "description": "Website for Clean Car - Luftbetriebenes Auto",
+  "type": "module",
+  "scripts": {
+    "dev": "python server.py"
+  }
+}

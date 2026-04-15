@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Car – Das luftbetriebene Auto der Zukunft</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Clean<span class="logo-accent">Car</span></span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero">Start</a></li>
+                <li><a href="#features">Vorteile</a></li>
+                <li><a href="#how-it-works">Technologie</a></li>
+                <li><a href="#specs">Daten</a></li>
+                <li><a href="#pricing">Preis</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Navigation öffnen">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="hero-particles" id="heroParticles"></div>
+        <div class="hero-content">
+            <p class="hero-badge">🌍 Zero Emissions – 100% Luft</p>
+            <h1 class="hero-title">
+                Die Zukunft der <span class="gradient-text">Mobilität</span> ist saubere Luft
+            </h1>
+            <p class="hero-subtitle">
+                Clean Car revolutioniert den Straßenverkehr mit Druckluft-Antrieb. 
+                Kein Benzin. Kein Strom. Nur reine Luft – ab <strong>10.000 €</strong>.
+            </p>
+            <div class="hero-actions">
+                <a href="#pricing" class="btn btn-primary">Jetzt vorbestellen</a>
+                <a href="#how-it-works" class="btn btn-outline">So funktioniert's</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value" data-target="0">0</span>
+                    <span class="stat-label">g CO₂ Ausstoß</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" data-target="200">0</span><span class="stat-unit">km</span>
+                    <span class="stat-label">Reichweite</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" data-target="10000">0</span><span class="stat-unit">€</span>
+                    <span class="stat-label">Einstiegspreis</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="car-showcase" id="carShowcase">
+                <div class="car-glow"></div>
+                <div class="car-silhouette">
+                    <svg viewBox="0 0 800 400" class="car-svg">
+                        <!-- Car body -->
+                        <path class="car-body" d="M150,280 Q150,250 180,230 L280,180 Q320,160 380,155 L520,155 Q560,155 580,170 L650,220 Q680,240 680,270 L680,290 Q680,300 670,300 L160,300 Q150,300 150,290 Z" fill="url(#carGradient)" />
+                        <!-- Windows -->
+                        <path class="car-window" d="M290,185 L340,165 L510,165 L570,185 L560,215 L290,215 Z" fill="rgba(135,206,250,0.4)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <line class="car-window-divider" x1="420" y1="165" x2="420" y2="215" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                        <!-- Wheels -->
+                        <circle class="car-wheel" cx="250" cy="300" r="35" fill="#1a1a2e"/>
+                        <circle class="car-wheel-inner" cx="250" cy="300" r="20" fill="#2d2d4e" stroke="#4ecdc4" stroke-width="2"/>
+                        <circle class="car-wheel-center" cx="250" cy="300" r="6" fill="#4ecdc4"/>
+                        <circle class="car-wheel" cx="600" cy="300" r="35" fill="#1a1a2e"/>
+                        <circle class="car-wheel-inner" cx="600" cy="300" r="20" fill="#2d2d4e" stroke="#4ecdc4" stroke-width="2"/>
+                        <circle class="car-wheel-center" cx="600" cy="300" r="6" fill="#4ecdc4"/>
+                        <!-- Headlights -->
+                        <ellipse class="car-headlight" cx="670" cy="260" rx="8" ry="15" fill="#4ecdc4" opacity="0.9"/>
+                        <!-- Air flow lines -->
+                        <path class="air-flow air-flow-1" d="M100,200 Q130,200 150,210" stroke="#4ecdc4" stroke-width="2" fill="none" opacity="0"/>
+                        <path class="air-flow air-flow-2" d="M80,240 Q120,235 150,245" stroke="#4ecdc4" stroke-width="2" fill="none" opacity="0"/>
+                        <path class="air-flow air-flow-3" d="M90,270 Q125,268 150,275" stroke="#4ecdc4" stroke-width="2" fill="none" opacity="0"/>
+                        <defs>
+                            <linearGradient id="carGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4ecdc4"/>
+                                <stop offset="100%" style="stop-color:#2c8c85"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Vorteile</span>
+                <h2>Warum Clean Car?</h2>
+                <p>Entdecken Sie die Vorteile des weltweit ersten erschwinglichen Luftautos.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card" data-animate="fade-up">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Null Emissionen</h3>
+                    <p>Kein CO₂, kein Feinstaub, kein Lärm. Clean Car produziert ausschließlich saubere Luft als "Abgas".</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up">
+                    <div class="feature-icon">💰</div>
+                    <h3>Extrem günstig</h3>
+                    <p>Ab nur 10.000 € und nahezu keine Betriebskosten. Luft ist kostenlos – tanken Sie umsonst.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Wartungsarm</h3>
+                    <p>Einfache Druckluft-Mechanik bedeutet weniger Verschleiß und minimale Wartungskosten.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Schnell aufgeladen</h3>
+                    <p>In nur 3 Minuten voll aufgeladen an jeder Druckluft-Station. Schneller als jedes E-Auto.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Sicher</h3>
+                    <p>Kein entzündlicher Treibstoff, keine Batterie-Risiken. Druckluft ist eine der sichersten Energiespeicher.</p>
+                </div>
+                <div class="feature-card" data-animate="fade-up">
+                    <div class="feature-icon">♻️</div>
+                    <h3>Recyclebar</h3>
+                    <p>95% der Materialien sind vollständig recycelbar. Nachhaltig von der Produktion bis zum Lebensende.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Technologie</span>
+                <h2>So funktioniert's</h2>
+                <p>Revolutionäre Druckluft-Technologie einfach erklärt.</p>
+            </div>
+            <div class="steps">
+                <div class="step" data-animate="fade-right">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h3>Luft komprimieren</h3>
+                        <p>Umgebungsluft wird in Hochdruck-Carbonfiber-Tanks auf 300 bar komprimiert und gespeichert.</p>
+                    </div>
+                </div>
+                <div class="step" data-animate="fade-right">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h3>Expansion erzeugt Kraft</h3>
+                        <p>Die komprimierte Luft expandiert kontrolliert und treibt dabei Kolben im Druckluftmotor an.</p>
+                    </div>
+                </div>
+                <div class="step" data-animate="fade-right">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h3>Saubere Abluft</h3>
+                        <p>Das einzige "Abfallprodukt" ist kühle, saubere Luft – sogar sauberer als die Umgebungsluft.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tech-visual" id="techVisual">
+                <canvas id="airflowCanvas" width="800" height="300"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specs Section -->
+    <section id="specs" class="specs">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Technische Daten</span>
+                <h2>Beeindruckende Leistung</h2>
+            </div>
+            <div class="specs-grid">
+                <div class="spec-item" data-animate="zoom-in">
+                    <div class="spec-value">110 <span>km/h</span></div>
+                    <div class="spec-label">Höchstgeschwindigkeit</div>
+                    <div class="spec-bar"><div class="spec-fill" data-width="73"></div></div>
+                </div>
+                <div class="spec-item" data-animate="zoom-in">
+                    <div class="spec-value">200 <span>km</span></div>
+                    <div class="spec-label">Reichweite</div>
+                    <div class="spec-bar"><div class="spec-fill" data-width="66"></div></div>
+                </div>
+                <div class="spec-item" data-animate="zoom-in">
+                    <div class="spec-value">3 <span>min</span></div>
+                    <div class="spec-label">Aufladezeit</div>
+                    <div class="spec-bar"><div class="spec-fill" data-width="95"></div></div>
+                </div>
+                <div class="spec-item" data-animate="zoom-in">
+                    <div class="spec-value">550 <span>kg</span></div>
+                    <div class="spec-label">Leergewicht</div>
+                    <div class="spec-bar"><div class="spec-fill" data-width="55"></div></div>
+                </div>
+                <div class="spec-item" data-animate="zoom-in">
+                    <div class="spec-value">4 <span>Sitze</span></div>
+                    <div class="spec-label">Sitzplätze</div>
+                    <div class="spec-bar"><div class="spec-fill" data-width="80"></div></div>
+                </div>
+                <div class="spec-item" data-animate="zoom-in">
+                    <div class="spec-value">300 <span>bar</span></div>
+                    <div class="spec-label">Tankdruck</div>
+                    <div class="spec-bar"><div class="spec-fill" data-width="85"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Preis</span>
+                <h2>Bezahlbar für alle</h2>
+                <p>Nachhaltige Mobilität muss nicht teuer sein.</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card" data-animate="fade-up">
+                    <div class="pricing-header">
+                        <h3>Clean Car Basis</h3>
+                        <div class="price">9.990 <span>€</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Druckluft-Antrieb</li>
+                        <li>✓ 150 km Reichweite</li>
+                        <li>✓ Klimaanlage</li>
+                        <li>✓ Touchscreen-Display</li>
+                        <li>✓ 2 Jahre Garantie</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Anfragen</a>
+                </div>
+                <div class="pricing-card pricing-featured" data-animate="fade-up">
+                    <div class="pricing-badge">Beliebteste Wahl</div>
+                    <div class="pricing-header">
+                        <h3>Clean Car Premium</h3>
+                        <div class="price">12.990 <span>€</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Druckluft-Antrieb+</li>
+                        <li>✓ 200 km Reichweite</li>
+                        <li>✓ Klimaanlage & Sitzheizung</li>
+                        <li>✓ 10"-Touchscreen mit Navi</li>
+                        <li>✓ Rückfahrkamera</li>
+                        <li>✓ 5 Jahre Garantie</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Jetzt vorbestellen</a>
+                </div>
+                <div class="pricing-card" data-animate="fade-up">
+                    <div class="pricing-header">
+                        <h3>Clean Car Sport</h3>
+                        <div class="price">15.990 <span>€</span></div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Druckluft-Antrieb Pro</li>
+                        <li>✓ 250 km Reichweite</li>
+                        <li>✓ Vollausstattung</li>
+                        <li>✓ Sport-Fahrwerk</li>
+                        <li>✓ 360°-Kamerasystem</li>
+                        <li>✓ 7 Jahre Garantie</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Anfragen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Kontakt</span>
+                <h2>Interesse? Schreiben Sie uns!</h2>
+                <p>Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+            </div>
+            <form id="contactForm" class="contact-form" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Ihr Name" required maxlength="100">
+                        <span class="form-error" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" id="email" name="email" placeholder="ihre@email.de" required maxlength="200">
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="model">Modell</label>
+                    <select id="model" name="model" required>
+                        <option value="">Modell wählen…</option>
+                        <option value="basis">Clean Car Basis – 9.990 €</option>
+                        <option value="premium">Clean Car Premium – 12.990 €</option>
+                        <option value="sport">Clean Car Sport – 15.990 €</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Nachricht</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Ihre Nachricht…" maxlength="2000"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Nachricht senden</button>
+                <div id="formStatus" class="form-status"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="logo-icon">🌿</span>
+                    <span class="logo-text">Clean<span class="logo-accent">Car</span></span>
+                    <p>Die Zukunft fährt mit Luft.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <a href="#features">Vorteile</a>
+                    <a href="#how-it-works">Technologie</a>
+                    <a href="#specs">Daten</a>
+                    <a href="#pricing">Preis</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Rechtliches</h4>
+                    <a href="#">Impressum</a>
+                    <a href="#">Datenschutz</a>
+                    <a href="#">AGB</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Clean Car GmbH. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>
