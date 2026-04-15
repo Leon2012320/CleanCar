@@ -3,7 +3,7 @@
 // ============================================
 
 // Replace with your Formspree form ID after registering at https://formspree.io
-const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORMSPREE_URL = 'https://formspree.io/f/xvzdzkdo';
 
 const validateEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
