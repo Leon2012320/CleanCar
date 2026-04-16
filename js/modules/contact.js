@@ -1,8 +1,10 @@
 // ============================================
-// Contact Form – Validation & Server Submission
+// Contact Form – Validation & Formspree Submission
 // ============================================
 
 import { isLoggedIn, openModal } from './auth.js';
+
+const FORMSPREE_URL = 'https://formspree.io/f/xvzdzkdo';
 
 const validateEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -60,37 +62,24 @@ export const initContactForm = () => {
             submitBtn.textContent = 'Wird gesendet…';
         }
 
-        const payload = {
-            name: nameInput.value.trim(),
-            email: emailInput.value.trim(),
-            model: form.querySelector('#model')?.value || '',
-            message: form.querySelector('#message')?.value || '',
-        };
+        const formData = new FormData(form);
 
         try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch(FORMSPREE_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
+                body: formData,
+                headers: { 'Accept': 'application/json' },
             });
 
-            const result = await response.json();
-
-            if (response.ok) {
-                if (statusEl) {
-                    statusEl.textContent = result.message || 'Vielen Dank! Wir melden uns bald bei Ihnen.';
-                    statusEl.className = 'form-status success';
-                }
-                form.reset();
-            } else if (response.status === 401) {
-                if (statusEl) {
-                    statusEl.textContent = 'Bitte melden Sie sich an, um eine Nachricht zu senden.';
-                    statusEl.className = 'form-status error';
-                }
-                openModal('login');
-            } else {
-                throw new Error(result.error || result.errors?.join(' ') || 'Fehler');
+            if (!response.ok) {
+                throw new Error('Senden fehlgeschlagen.');
             }
+
+            if (statusEl) {
+                statusEl.textContent = 'Vielen Dank! Wir melden uns bald bei Ihnen.';
+                statusEl.className = 'form-status success';
+            }
+            form.reset();
         } catch (err) {
             if (statusEl) {
                 statusEl.textContent = err.message || 'Fehler beim Senden. Bitte versuchen Sie es erneut.';
@@ -98,6 +87,12 @@ export const initContactForm = () => {
             }
         } finally {
             if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Nachricht senden';
+            }
+        }
+    });
+};
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Nachricht senden';
             }

@@ -1,45 +1,22 @@
 // ============================================
-// Auth – Registration, Login, Email Verification
+// Auth – Firebase Registration, Login, Email Verification
 // ============================================
+
+import {
+    auth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    sendEmailVerification,
+    updateProfile,
+    getFirebaseError,
+} from './firebase-config.js';
 
 let currentUser = null;
 
 const validateEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-// ---------- API helpers ----------
-
-async function api(url, data) {
-    try {
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-        const json = await res.json();
-        return { ok: res.ok, status: res.status, data: json };
-    } catch (err) {
-        console.error('API error:', url, err);
-        return { ok: false, status: 0, data: { error: 'Netzwerkfehler – ist der Server gestartet? (python server.py)' } };
-    }
-}
-
-async function checkSession() {
-    try {
-        const res = await fetch('/api/session');
-        const json = await res.json();
-        if (json.loggedIn) {
-            currentUser = json.user;
-            updateUI();
-        } else {
-            currentUser = null;
-            updateUI();
-        }
-    } catch {
-        currentUser = null;
-        updateUI();
-    }
-}
 
 // ---------- UI update ----------
 
@@ -48,13 +25,12 @@ function updateUI() {
     const registerBtn = document.getElementById('authRegisterBtn');
     const userInfo = document.getElementById('authUserInfo');
     const userName = document.getElementById('authUserName');
-    const logoutBtn = document.getElementById('authLogoutBtn');
 
     if (currentUser) {
         if (loginBtn) loginBtn.style.display = 'none';
         if (registerBtn) registerBtn.style.display = 'none';
         if (userInfo) userInfo.style.display = 'flex';
-        if (userName) userName.textContent = currentUser.name;
+        if (userName) userName.textContent = currentUser.displayName || currentUser.email;
     } else {
         if (loginBtn) loginBtn.style.display = '';
         if (registerBtn) registerBtn.style.display = '';
@@ -73,13 +49,16 @@ function handlePurchaseClick(e) {
         e.preventDefault();
         openModal('login');
         showModalMessage('Bitte melden Sie sich an, um ein Auto zu bestellen.', 'error');
+    } else if (!currentUser.emailVerified) {
+        e.preventDefault();
+        openModal('login');
+        showModalMessage('Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse.', 'error');
     }
-    // If logged in, let the link work normally (goes to #contact)
 }
 
 // ---------- Modal ----------
 
-function openModal(tab = 'login') {
+export function openModal(tab = 'login') {
     const modal = document.getElementById('authModal');
     if (!modal) return;
     modal.classList.add('active');
@@ -149,15 +128,15 @@ async function handleRegister(e) {
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Wird erstellt…'; }
 
     try {
-        const res = await api('/api/register', { name, email, password });
-        if (res.ok) {
-            showModalMessage(res.data.message, 'success');
-            e.target.reset();
-        } else {
-            showModalMessage(res.data.error || res.data.errors?.join(' ') || 'Fehler bei der Registrierung.');
-        }
-    } catch {
-        showModalMessage('Netzwerkfehler. Bitte versuchen Sie es erneut.');
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(userCredential.user, { displayName: name });
+        await sendEmailVerification(userCredential.user);
+        // Sign out – user must verify email before logging in
+        await signOut(auth);
+        showModalMessage('Account erstellt! Bitte prüfen Sie Ihre E-Mails und bestätigen Sie Ihre Adresse.', 'success');
+        e.target.reset();
+    } catch (error) {
+        showModalMessage(getFirebaseError(error));
     } finally {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Registrieren'; }
     }
@@ -177,16 +156,16 @@ async function handleLogin(e) {
     if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Wird eingeloggt…'; }
 
     try {
-        const res = await api('/api/login', { email, password });
-        if (res.ok) {
-            currentUser = res.data.user;
-            updateUI();
-            closeModal();
-        } else {
-            showModalMessage(res.data.error || 'Login fehlgeschlagen.');
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        if (!userCredential.user.emailVerified) {
+            showModalMessage('Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse. Prüfen Sie Ihren Posteingang.', 'error');
+            await signOut(auth);
+            return;
         }
-    } catch {
-        showModalMessage('Netzwerkfehler. Bitte versuchen Sie es erneut.');
+        // onAuthStateChanged handles the rest
+        closeModal();
+    } catch (error) {
+        showModalMessage(getFirebaseError(error));
     } finally {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Einloggen'; }
     }
@@ -194,24 +173,8 @@ async function handleLogin(e) {
 
 async function handleLogout() {
     try {
-        await fetch('/api/logout', { method: 'POST' });
+        await signOut(auth);
     } catch { /* ignore */ }
-    currentUser = null;
-    updateUI();
-}
-
-// ---------- Verification URL params ----------
-
-function checkVerifyParams() {
-    const params = new URLSearchParams(window.location.search);
-    const verify = params.get('verify');
-    const msg = params.get('msg');
-    if (verify && msg) {
-        openModal('login');
-        showModalMessage(decodeURIComponent(msg), verify === 'success' ? 'success' : 'error');
-        // Clean URL
-        window.history.replaceState({}, '', window.location.pathname + window.location.hash);
-    }
 }
 
 // ---------- Init ----------
@@ -241,10 +204,15 @@ export const initAuth = () => {
         if (e.key === 'Escape') closeModal();
     });
 
-    // Check session & verify params
-    checkSession();
-    checkVerifyParams();
+    // Firebase auth state listener – fires on login, logout, and page load
+    onAuthStateChanged(auth, (user) => {
+        if (user && user.emailVerified) {
+            currentUser = user;
+        } else {
+            currentUser = null;
+        }
+        updateUI();
+    });
 };
 
 export const isLoggedIn = () => !!currentUser;
-export { openModal };
