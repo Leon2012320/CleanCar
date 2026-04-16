@@ -10,6 +10,7 @@ import os
 import hashlib
 import secrets
 import smtplib
+import mimetypes
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from http import cookies
@@ -43,6 +44,11 @@ BASE_URL = os.environ.get("BASE_URL", f"http://{HOST}:{PORT}")
 sessions: dict[str, str] = {}
 
 USERS_FILE = DATA_DIR / "users.json"
+
+# Ensure correct MIME types on Windows
+mimetypes.add_type("application/javascript", ".js")
+mimetypes.add_type("application/javascript", ".mjs")
+mimetypes.add_type("text/css", ".css")
 
 
 # --------------- Password helpers ---------------
@@ -166,6 +172,24 @@ def save_contact(data: dict) -> None:
 
 class CleanCarHandler(SimpleHTTPRequestHandler):
     """Custom request handler for Clean Car website."""
+
+    # Fix MIME types – Windows often misses .js
+    extensions_map = {
+        **SimpleHTTPRequestHandler.extensions_map,
+        '.js': 'application/javascript',
+        '.mjs': 'application/javascript',
+        '.css': 'text/css',
+        '.json': 'application/json',
+        '.html': 'text/html',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.gif': 'image/gif',
+        '.svg': 'image/svg+xml',
+        '.mp4': 'video/mp4',
+        '.webp': 'image/webp',
+        '.woff2': 'font/woff2',
+    }
 
     def do_GET(self):
         if self.path.startswith("/api/verify"):
