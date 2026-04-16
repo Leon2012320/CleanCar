@@ -93,9 +93,3 @@ export const initContactForm = () => {
         }
     });
 };
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Nachricht senden';
-            }
-        }
-    });
-};

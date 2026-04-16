@@ -12,12 +12,13 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification, updateProfile } from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js';
 
 const firebaseConfig = {
-    apiKey: "DEINE_API_KEY",
-    authDomain: "DEIN_PROJEKT.firebaseapp.com",
-    projectId: "DEIN_PROJEKT",
-    storageBucket: "DEIN_PROJEKT.appspot.com",
-    messagingSenderId: "DEINE_SENDER_ID",
-    appId: "DEINE_APP_ID"
+  apiKey: "AIzaSyDgeM59-z6si4qJFfJh-PYUOWM_kqu6L9k",
+  authDomain: "cleancar-50f53.firebaseapp.com",
+  projectId: "cleancar-50f53",
+  storageBucket: "cleancar-50f53.firebasestorage.app",
+  messagingSenderId: "975095921897",
+  appId: "1:975095921897:web:b29390c28422988a000478",
+  measurementId: "G-ZJC72W9YKV"
 };
 
 const app = initializeApp(firebaseConfig);
