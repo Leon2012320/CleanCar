@@ -12,7 +12,9 @@ import secrets
 import smtplib
 import mimetypes
 import logging
+import threading
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+from socketserver import ThreadingMixIn
 from http import cookies
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -50,6 +52,9 @@ mimetypes.add_type("application/javascript", ".js")
 mimetypes.add_type("application/javascript", ".mjs")
 mimetypes.add_type("text/css", ".css")
 
+# Thread lock for file writes
+_file_lock = threading.Lock()
+
 
 # --------------- Password helpers ---------------
 def hash_password(password: str, salt: bytes | None = None) -> tuple[str, str]:
@@ -75,7 +80,8 @@ def load_users() -> list[dict]:
 
 
 def save_users(users: list[dict]) -> None:
-    USERS_FILE.write_text(json.dumps(users, ensure_ascii=False, indent=2), encoding="utf-8")
+    with _file_lock:
+        USERS_FILE.write_text(json.dumps(users, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def find_user(email: str) -> dict | None:
@@ -166,7 +172,8 @@ def save_contact(data: dict) -> None:
         "timestamp": datetime.now().isoformat(),
     }
     contacts.append(entry)
-    filename.write_text(json.dumps(contacts, ensure_ascii=False, indent=2), encoding="utf-8")
+    with _file_lock:
+        filename.write_text(json.dumps(contacts, ensure_ascii=False, indent=2), encoding="utf-8")
     logger.info("New contact saved: %s (%s)", entry["name"], entry["email"])
 
 
@@ -409,10 +416,22 @@ class CleanCarHandler(SimpleHTTPRequestHandler):
         self.send_response(status)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         if set_cookie:
             self.send_header("Set-Cookie", set_cookie)
         self.end_headers()
         self.wfile.write(body)
+
+    def do_OPTIONS(self):
+        """Handle CORS preflight requests."""
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Content-Length", "0")
+        self.end_headers()
 
     def translate_path(self, path):
         """Serve files from project root."""
@@ -430,8 +449,13 @@ class CleanCarHandler(SimpleHTTPRequestHandler):
         logger.info(format, *args)
 
 
+class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
+    """Handle requests in separate threads to prevent blocking."""
+    daemon_threads = True
+
+
 def main():
-    server = HTTPServer((HOST, PORT), CleanCarHandler)
+    server = ThreadedHTTPServer((HOST, PORT), CleanCarHandler)
     logger.info("🌿 Clean Car Server running at http://%s:%d", HOST, PORT)
     try:
         server.serve_forever()
