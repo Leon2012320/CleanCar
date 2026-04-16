@@ -242,3 +242,4 @@ export const initAuth = () => {
 };
 
 export const isLoggedIn = () => !!currentUser;
+export { openModal };

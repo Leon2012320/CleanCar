@@ -1,9 +1,8 @@
 // ============================================
-// Contact Form – Validation & Formspree Submission
+// Contact Form – Validation & Server Submission
 // ============================================
 
-// Replace with your Formspree form ID after registering at https://formspree.io
-const FORMSPREE_URL = 'https://formspree.io/f/xvzdzkdo';
+import { isLoggedIn, openModal } from './auth.js';
 
 const validateEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -42,6 +41,17 @@ export const initContactForm = () => {
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Require login to send a message
+        if (!isLoggedIn()) {
+            if (statusEl) {
+                statusEl.textContent = 'Bitte melden Sie sich an, um eine Nachricht zu senden.';
+                statusEl.className = 'form-status error';
+            }
+            openModal('login');
+            return;
+        }
+
         if (!validate()) return;
 
         const submitBtn = form.querySelector('button[type="submit"]');
@@ -50,27 +60,40 @@ export const initContactForm = () => {
             submitBtn.textContent = 'Wird gesendet…';
         }
 
-        const formData = new FormData(form);
+        const payload = {
+            name: nameInput.value.trim(),
+            email: emailInput.value.trim(),
+            model: form.querySelector('#model')?.value || '',
+            message: form.querySelector('#message')?.value || '',
+        };
 
         try {
-            const response = await fetch(FORMSPREE_URL, {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' },
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
             });
 
-            if (!response.ok) {
-                throw new Error(`Formspree error: ${response.status}`);
-            }
+            const result = await response.json();
 
-            if (statusEl) {
-                statusEl.textContent = 'Vielen Dank! Wir melden uns bald bei Ihnen.';
-                statusEl.className = 'form-status success';
+            if (response.ok) {
+                if (statusEl) {
+                    statusEl.textContent = result.message || 'Vielen Dank! Wir melden uns bald bei Ihnen.';
+                    statusEl.className = 'form-status success';
+                }
+                form.reset();
+            } else if (response.status === 401) {
+                if (statusEl) {
+                    statusEl.textContent = 'Bitte melden Sie sich an, um eine Nachricht zu senden.';
+                    statusEl.className = 'form-status error';
+                }
+                openModal('login');
+            } else {
+                throw new Error(result.error || result.errors?.join(' ') || 'Fehler');
             }
-            form.reset();
-        } catch {
+        } catch (err) {
             if (statusEl) {
-                statusEl.textContent = 'Fehler beim Senden. Bitte versuchen Sie es erneut.';
+                statusEl.textContent = err.message || 'Fehler beim Senden. Bitte versuchen Sie es erneut.';
                 statusEl.className = 'form-status error';
             }
         } finally {

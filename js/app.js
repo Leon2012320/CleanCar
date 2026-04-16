@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
     initAnimations();
     initCounters();
-    initContactForm();
     initParticles();
     initAirflowCanvas();
     initLightbox();
     initAuth();
+    initContactForm();
 });
