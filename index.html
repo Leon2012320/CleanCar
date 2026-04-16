@@ -25,6 +25,14 @@
                 <li><a href="#pricing">Preis</a></li>
                 <li><a href="#contact">Kontakt</a></li>
             </ul>
+            <div class="nav-auth">
+                <button class="btn btn-outline btn-sm" id="authLoginBtn">Einloggen</button>
+                <button class="btn btn-primary btn-sm" id="authRegisterBtn">Registrieren</button>
+                <div class="auth-user-info" id="authUserInfo" style="display:none;">
+                    <span class="auth-user-name" id="authUserName"></span>
+                    <button class="btn btn-outline btn-sm" id="authLogoutBtn">Ausloggen</button>
+                </div>
+            </div>
             <button class="nav-toggle" id="navToggle" aria-label="Navigation öffnen">
                 <span></span><span></span><span></span>
             </button>
@@ -205,11 +213,11 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Technische Daten</span>
-                <h2>Beeindruckende Leistung</h2>
+                <h2>Sehr Beeindruckende Leistung</h2>
             </div>
             <div class="specs-grid">
                 <div class="spec-item" data-animate="zoom-in">
-                    <div class="spec-value">320 <span>km/h</span></div>
+                    <div class="spec-value">320 <span>km/s</span></div>
                     <div class="spec-label">Höchstgeschwindigkeit</div>
                     <div class="spec-bar"><div class="spec-fill" data-width="95"></div></div>
                 </div>
@@ -229,7 +237,7 @@
                     <div class="spec-bar"><div class="spec-fill" data-width="55"></div></div>
                 </div>
                 <div class="spec-item" data-animate="zoom-in">
-                    <div class="spec-value">4 <span>Sitze</span></div>
+                    <div class="spec-value">6 <span>Sitze</span></div>
                     <div class="spec-label">Sitzplätze</div>
                     <div class="spec-bar"><div class="spec-fill" data-width="80"></div></div>
                 </div>
@@ -373,6 +381,57 @@
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close" aria-label="Schließen">&times;</button>
         <img src="" alt="" id="lightboxImg">
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal-overlay" id="authModal">
+        <div class="auth-modal">
+            <button class="auth-modal-close" id="authModalClose" aria-label="Schließen">&times;</button>
+            <div class="auth-modal-header">
+                <span class="logo-icon">🌿</span>
+                <span class="logo-text">Clean<span class="logo-accent">Car</span></span>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="authTabLogin">Einloggen</button>
+                <button class="auth-tab" id="authTabRegister">Registrieren</button>
+            </div>
+            <div id="authMessage" class="auth-message"></div>
+
+            <!-- Login Form -->
+            <form id="authLoginForm" novalidate>
+                <div class="form-group">
+                    <label for="loginEmail">E-Mail</label>
+                    <input type="email" id="loginEmail" placeholder="ihre@email.de" required maxlength="200">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Passwort</label>
+                    <input type="password" id="loginPassword" placeholder="Passwort" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Einloggen</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="authRegisterForm" style="display:none;" novalidate>
+                <div class="form-group">
+                    <label for="regName">Name</label>
+                    <input type="text" id="regName" placeholder="Ihr Name" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">E-Mail</label>
+                    <input type="email" id="regEmail" placeholder="ihre@email.de" required maxlength="200">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Passwort</label>
+                    <input type="password" id="regPassword" placeholder="Mind. 8 Zeichen" required minlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword2">Passwort bestätigen</label>
+                    <input type="password" id="regPassword2" placeholder="Passwort wiederholen" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Registrieren</button>
+                <p class="auth-hint">Nach der Registrierung erhalten Sie eine E-Mail zur Bestätigung.</p>
+            </form>
+        </div>
     </div>
 
     <script type="module" src="js/app.js"></script>

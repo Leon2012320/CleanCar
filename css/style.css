@@ -896,6 +896,157 @@ ul { list-style: none; }
 /* ============================================
    Animations
    ============================================ */
+
+/* ============================================
+   Auth – Navbar buttons & Modal
+   ============================================ */
+.btn-sm {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+}
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 16px;
+}
+
+.auth-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.auth-user-name {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Modal overlay */
+.auth-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.auth-modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Modal box */
+.auth-modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.35s ease;
+}
+
+.auth-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: var(--transition);
+}
+.auth-modal-close:hover {
+    color: var(--primary);
+}
+
+.auth-modal-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    justify-content: center;
+}
+
+/* Tabs */
+.auth-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    background: var(--bg-dark);
+    border-radius: 50px;
+    padding: 4px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--font);
+    cursor: pointer;
+    border-radius: 50px;
+    transition: var(--transition);
+}
+.auth-tab.active {
+    background: var(--primary);
+    color: var(--bg-dark);
+}
+.auth-tab:hover:not(.active) {
+    color: var(--text);
+}
+
+/* Message */
+.auth-message {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    min-height: 1.5em;
+    margin-bottom: 12px;
+    padding: 0 4px;
+}
+.auth-message.error { color: #f87171; }
+.auth-message.success { color: var(--accent); }
+
+/* Hint after register */
+.auth-hint {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 16px;
+}
+
+/* Modal form spacing */
+.auth-modal .form-group {
+    margin-bottom: 16px;
+}
+
+/* ============================================
+   Animations (keyframes)
+   ============================================ */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
@@ -947,6 +1098,23 @@ ul { list-style: none; }
     }
     .nav-links.open { display: flex; }
     .nav-toggle { display: flex; }
+
+    .nav-auth {
+        margin-left: 0;
+        margin-right: 8px;
+    }
+    .nav-auth .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+    }
+    .auth-user-name {
+        display: none;
+    }
+
+    .auth-modal {
+        margin: 16px;
+        padding: 28px 20px;
+    }
 
     .hero-title { font-size: 2rem; }
     .hero-stats { gap: 24px; }

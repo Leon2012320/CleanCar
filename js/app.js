@@ -9,6 +9,7 @@ import { initContactForm } from './modules/contact.js';
 import { initParticles } from './modules/particles.js';
 import { initAirflowCanvas } from './modules/airflow.js';
 import { initLightbox } from './modules/lightbox.js';
+import { initAuth } from './modules/auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
@@ -18,4 +19,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initParticles();
     initAirflowCanvas();
     initLightbox();
+    initAuth();
 });
